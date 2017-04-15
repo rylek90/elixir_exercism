@@ -8,7 +8,7 @@ defmodule Triangle do
   def kind(a, b, c) when a <= 0 or b <= 0 or c <= 0,
     do: { :error, "all side lengths must be positive" }
 
-  def kind(a, b, c) when a == b and b == c, do: { :ok, :equilateral }
+  def kind(a, a, a), do: { :ok, :equilateral }
 
   def kind(a, b, c) do
     Enum.sort([a, b, c]) |> kind
