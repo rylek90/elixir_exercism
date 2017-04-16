@@ -16,10 +16,15 @@ defmodule Sublist do
   defp is_sublist?(value, value), do: true
   defp is_sublist?(_, []), do: false
   defp is_sublist?(left, right) when length(left) > length(right), do: false
-  defp is_sublist?([head | left_tail], [head | right_tail]) do
-    is_sublist?(left_tail, right_tail)
+  defp is_sublist?(left, right = [_ | right_tail]) do
+    case sequence_match?(left, right) do
+      true -> true
+      false -> is_sublist?(left, right_tail)
+    end
   end
 
-  defp is_sublist?(left, [right_head | right_tail]), do: is_sublist?(left, right_tail)
-  defp is_sublist?(_, _), do: false
+  defp sequence_match?([], _), do: true
+  defp sequence_match?([head | left_tail], [head | right_tail]), do:
+    sequence_match?(left_tail, right_tail)
+  defp sequence_match?(_, _), do: false
 end
