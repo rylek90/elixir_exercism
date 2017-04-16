@@ -16,10 +16,10 @@ defmodule FlattenArray do
   def flatten(list) do
     list
     |> flatten([])
-    |> Enum.filter(&(&1 != nil))
   end
 
   def flatten([], acc), do: acc
+  def flatten([nil | tail], acc), do: flatten(tail, acc)
   def flatten([head | tail], acc), do: flatten(head, flatten(tail, acc))
   def flatten(elem, acc), do: [elem | acc]
 end
